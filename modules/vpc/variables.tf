@@ -53,7 +53,7 @@ variable "newbits_public_subnet" {
   description = "Number of additional bits to extend the VPC CIDR for public subnets"
 }
 
-variable "nat_public_subnet_id" {
+variable "ngw_public_subnet_id" {
   type        = string
   description = "ID of the public subnet to associate with the NAT gateway"
 }

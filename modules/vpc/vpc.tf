@@ -45,7 +45,6 @@ resource "aws_subnet" "public_subnet" {
       # "kubernetes.io/role/elb"          = 1
     }
   )
-
 }
 
 resource "aws_internet_gateway" "this" {
@@ -57,7 +56,6 @@ resource "aws_internet_gateway" "this" {
       Name = "internet-gateway-${var.project_name}"
     }
   )
-
 }
 
 resource "aws_eip" "this" {
@@ -65,14 +63,13 @@ resource "aws_eip" "this" {
   tags = merge(
     var.tags,
     {
-      Name = "nat-eip-${var.project_name}"
+      Name = "ngw-eip-${var.project_name}"
     }
   )
-
 }
 
 resource "aws_nat_gateway" "this" {
-  subnet_id     = var.nat_public_subnet_id
+  subnet_id     = var.ngw_public_subnet_id
   allocation_id = aws_eip.this.id
 
   tags = merge(
@@ -81,5 +78,4 @@ resource "aws_nat_gateway" "this" {
       Name = "nat-gateway-${var.project_name}"
     }
   )
-
 }
