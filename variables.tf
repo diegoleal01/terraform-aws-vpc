@@ -27,3 +27,8 @@ variable "newbits_public_subnet" {
   type        = number
   description = "Number of additional bits to extend the VPC CIDR for public subnets"
 }
+
+variable "office_cidr_block" {
+  type        = string
+  description = "The CIDR block representing the office network for restricted access"
+}
