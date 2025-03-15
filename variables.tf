@@ -28,7 +28,12 @@ variable "newbits_public_subnet" {
   description = "Number of additional bits to extend the VPC CIDR for public subnets"
 }
 
-variable "office_cidr_block" {
+variable "office_lan_cidr_block" {
   type        = string
   description = "The CIDR block representing the office network for restricted access"
+}
+
+variable "office_external_gateway_ip" {
+  type        = string
+  description = "The external IP address of the office's internet gateway"
 }

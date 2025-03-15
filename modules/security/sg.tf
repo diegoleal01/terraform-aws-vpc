@@ -14,7 +14,7 @@ resource "aws_security_group" "office_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = [var.office_cidr_block]
+    cidr_blocks = [var.office_lan_cidr_block]
   }
 
   egress {

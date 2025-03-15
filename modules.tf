@@ -20,10 +20,21 @@ module "route" {
 }
 
 module "security" {
-  source            = "./modules/security"
-  vpc_cidr_block    = var.vpc_cidr_block
-  project_name      = var.project_name
-  office_cidr_block = var.office_cidr_block
-  vpc_id            = module.vpc.vpc_id
-  tags              = local.tags
+  source                = "./modules/security"
+  vpc_cidr_block        = var.vpc_cidr_block
+  project_name          = var.project_name
+  office_lan_cidr_block = var.office_lan_cidr_block
+  vpc_id                = module.vpc.vpc_id
+  tags                  = local.tags
+}
+
+module "vpn" {
+  source                     = "./modules/vpn"
+  project_name               = var.project_name
+  vpc_id                     = module.vpc.vpc_id
+  private_rtb_id             = module.route.private_rtb_id
+  public_rtb_id              = module.route.public_rtb_id
+  office_lan_cidr_block      = var.office_lan_cidr_block
+  office_external_gateway_ip = var.office_external_gateway_ip
+  tags                       = local.tags
 }

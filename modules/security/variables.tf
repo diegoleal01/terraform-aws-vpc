@@ -14,7 +14,7 @@ variable "office_access_sg_name" {
   description = "The name of the security group for office network access"
 }
 
-variable "office_cidr_block" {
+variable "office_lan_cidr_block" {
   type        = string
   description = "The CIDR block representing the office network for restricted access"
 }
