@@ -28,8 +28,8 @@ variable "vpc_dns_support" {
 variable "private_subnet_numbers" {
   type = map(number)
   default = {
-    "us-east-1a" = 1
-    "us-east-1b" = 2
+    "us-east-1a" = 0
+    "us-east-1b" = 1
   }
   description = "Map of availability zones to numbers for private subnet creation"
 }
@@ -37,8 +37,8 @@ variable "private_subnet_numbers" {
 variable "public_subnet_numbers" {
   type = map(number)
   default = {
-    "us-east-1a" = 3
-    "us-east-1b" = 4
+    "us-east-1a" = 2
+    "us-east-1b" = 3
   }
   description = "Map of availability zones to numbers for public subnet creation"
 }
