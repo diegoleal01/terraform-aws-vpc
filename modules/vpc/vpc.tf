@@ -69,7 +69,7 @@ resource "aws_eip" "this" {
 }
 
 resource "aws_nat_gateway" "this" {
-  subnet_id     = var.ngw_public_subnet_id
+  subnet_id     = values(aws_subnet.public_subnet)[0].id
   allocation_id = aws_eip.this.id
 
   tags = merge(

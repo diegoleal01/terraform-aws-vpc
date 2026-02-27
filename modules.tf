@@ -4,7 +4,6 @@ module "vpc" {
   project_name           = var.project_name
   newbits_private_subnet = var.newbits_private_subnet
   newbits_public_subnet  = var.newbits_public_subnet
-  ngw_public_subnet_id   = module.vpc.ngw_public_subnet_id
   tags                   = local.tags
 }
 
