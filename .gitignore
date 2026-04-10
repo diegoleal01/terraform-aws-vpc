@@ -39,3 +39,6 @@ terraform.rc
 
 # Pre Commit config file
 .pre-commit-config.yaml
+
+# Backend files
+backend.hcl
