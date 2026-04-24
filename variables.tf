@@ -22,3 +22,13 @@ variable "tags" {
   type        = map(string)
   description = "Tags to apply to all resources"
 }
+
+variable "az_count" {
+  type        = number
+  description = "Number of Availability Zones to spread subnets across"
+
+  validation {
+    condition     = contains([2, 3], var.az_count)
+    error_message = "az_count must be 2 or 3."
+  }
+}
