@@ -11,9 +11,9 @@ output "ngw_id" {
 }
 
 output "ngw_public_subnet_id" {
-  value = tomap({
-    for i, subnet in aws_subnet.public_subnet : i => subnet.id
-  })["us-east-1a"]
+  value = values(tomap({
+    for i, subnet in aws_subnet.public_subnet : 1 => subnet.id
+  }))[0]
 }
 
 output "public_subnet_id" {
