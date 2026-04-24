@@ -4,7 +4,7 @@ module "vpc" {
   project_name           = var.project_name
   newbits_private_subnet = var.newbits_private_subnet
   newbits_public_subnet  = var.newbits_public_subnet
-  ngw_public_subnet_id   = module.vpc.ngw_public_subnet_id
+  az_count               = var.az_count
   tags                   = local.tags
 }
 
@@ -14,7 +14,7 @@ module "route" {
   vpc_id            = module.vpc.vpc_id
   igw_id            = module.vpc.igw_id
   ngw_id            = module.vpc.ngw_id
-  public_subnet_id  = module.vpc.public_subnet_id
-  private_subnet_id = module.vpc.private_subnet_id
+  public_subnet_id  = module.vpc.public_subnet_ids
+  private_subnet_id = module.vpc.private_subnet_ids
   tags              = local.tags
 }

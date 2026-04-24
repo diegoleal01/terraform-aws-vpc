@@ -1,3 +1,11 @@
+data "aws_availability_zones" "available_azs" {
+  state = "available"
+}
+
+locals {
+  azs = slice(data.aws_availability_zones.available_azs.names, 0, var.az_count)
+}
+
 resource "aws_vpc" "this" {
   cidr_block           = var.vpc_cidr_block
   enable_dns_hostnames = var.vpc_dns_hostnames
@@ -12,11 +20,11 @@ resource "aws_vpc" "this" {
 }
 
 resource "aws_subnet" "private_subnet" {
-  for_each          = var.private_subnet_numbers
+  for_each          = toset(local.azs)
   vpc_id            = aws_vpc.this.id
   availability_zone = each.key
 
-  cidr_block = cidrsubnet(aws_vpc.this.cidr_block, var.newbits_private_subnet, each.value)
+  cidr_block = cidrsubnet(aws_vpc.this.cidr_block, var.newbits_private_subnet, index(local.azs, each.key) + var.az_count)
 
   tags = merge(
     var.tags,
@@ -30,11 +38,11 @@ resource "aws_subnet" "private_subnet" {
 }
 
 resource "aws_subnet" "public_subnet" {
-  for_each          = var.public_subnet_numbers
+  for_each          = toset(local.azs)
   vpc_id            = aws_vpc.this.id
   availability_zone = each.key
 
-  cidr_block = cidrsubnet(aws_vpc.this.cidr_block, var.newbits_public_subnet, each.value)
+  cidr_block = cidrsubnet(aws_vpc.this.cidr_block, var.newbits_public_subnet, index(local.azs, each.key))
 
   tags = merge(
     var.tags,
@@ -69,8 +77,9 @@ resource "aws_eip" "this" {
 }
 
 resource "aws_nat_gateway" "this" {
-  subnet_id     = var.ngw_public_subnet_id
+  subnet_id     = aws_subnet.public_subnet[local.azs[0]].id
   allocation_id = aws_eip.this.id
+  depends_on    = [aws_internet_gateway.this]
 
   tags = merge(
     var.tags,

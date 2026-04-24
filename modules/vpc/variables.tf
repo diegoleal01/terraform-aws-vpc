@@ -25,24 +25,6 @@ variable "vpc_dns_support" {
   description = "Enable DNS resolution via Amazon-provided DNS. Required for EKS"
 }
 
-variable "private_subnet_numbers" {
-  type = map(number)
-  default = {
-    "us-east-1a" = 0
-    "us-east-1b" = 1
-  }
-  description = "Map of availability zones to numbers for private subnet creation"
-}
-
-variable "public_subnet_numbers" {
-  type = map(number)
-  default = {
-    "us-east-1a" = 2
-    "us-east-1b" = 3
-  }
-  description = "Map of availability zones to numbers for public subnet creation"
-}
-
 variable "newbits_private_subnet" {
   type        = number
   description = "Number of additional bits to extend the VPC CIDR for private subnets"
@@ -53,7 +35,12 @@ variable "newbits_public_subnet" {
   description = "Number of additional bits to extend the VPC CIDR for public subnets"
 }
 
-variable "ngw_public_subnet_id" {
-  type        = string
-  description = "ID of the public subnet to associate with the NAT gateway"
+variable "az_count" {
+  type        = number
+  description = "Number of Availability Zones to spread subnets across"
+
+  validation {
+    condition     = contains([2, 3], var.az_count)
+    error_message = "az_count must be 2 or 3."
+  }
 }
