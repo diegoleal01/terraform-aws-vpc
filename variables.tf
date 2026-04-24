@@ -17,3 +17,8 @@ variable "newbits_public_subnet" {
   type        = number
   description = "Number of additional bits to extend the VPC CIDR for public subnets"
 }
+
+variable "tags" {
+  type        = map(string)
+  description = "Tags to apply to all resources"
+}
