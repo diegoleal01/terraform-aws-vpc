@@ -30,9 +30,6 @@ resource "aws_subnet" "private_subnet" {
     var.tags,
     {
       Name = "private-subnet-${each.key}"
-      # Uncomment and modify as needed when creating the VPC for use with EKS
-      # "kubernetes.io/cluster/<cluster_name>" = "owned"
-      # "kubernetes.io/role/internal-elb" = 1
     }
   )
 }
@@ -48,9 +45,6 @@ resource "aws_subnet" "public_subnet" {
     var.tags,
     {
       Name = "public-subnet-${each.key}"
-      # Uncomment and modify as needed when creating the VPC for use with EKS
-      # "kubernetes.io/cluster/<cluster_name>" = "owned"
-      # "kubernetes.io/role/elb"          = 1
     }
   )
 }
