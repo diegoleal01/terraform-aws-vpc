@@ -13,18 +13,6 @@ variable "vpc_cidr_block" {
   description = "The IPv4 CIDR block to assign to the VPC"
 }
 
-variable "vpc_dns_hostnames" {
-  type        = bool
-  default     = true
-  description = "Enable public DNS hostnames for instances with public IPs. Required for EKS"
-}
-
-variable "vpc_dns_support" {
-  type        = bool
-  default     = true
-  description = "Enable DNS resolution via Amazon-provided DNS. Required for EKS"
-}
-
 variable "newbits_private_subnet" {
   type        = number
   description = "Number of additional bits to extend the VPC CIDR for private subnets"
