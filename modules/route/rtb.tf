@@ -26,7 +26,7 @@ resource "aws_route_table" "private_rtb" {
 
   route {
     cidr_block = var.default_route
-    gateway_id = var.ngw_id
+    nat_gateway_id = var.ngw_id
   }
 }
 
