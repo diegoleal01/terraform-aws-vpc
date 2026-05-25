@@ -36,7 +36,7 @@ provider "aws" {
 
 ```hcl
 module "vpc" {
-  source = "git::https://github.com/d-leal/terraform-aws-vpc.git?ref=v1.0.0"
+  source = "github.com/diegoleal01/terraform-aws-vpc?ref=v1.0.1"
 
   project_name           = "my-project"
   vpc_cidr_block         = "10.0.0.0/16"
